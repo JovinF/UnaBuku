@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:orientation="vertical"
+
+        >
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:src="@drawable/unasat"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welkom bij UnaBuku"
+            android:textColor="#696969"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textSize="24dp"
+            android:fontFamily="sans-serif-medium"
+            />
+
+        <EditText
+            android:id="@+id/user_email"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="username..."
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_person_outline_black_24dp"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="50dp"/>
+        <EditText
+            android:id="@+id/user_password"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="password..."
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="50dp"/>
+
+<Button
+    android:layout_width="100dp"
+    android:layout_height="50dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="50dp"
+    android:text="Login"
+    />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Heeft u nog geen account? Tik hier"
+            android:textColor="#696969"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:textSize="12dp"
+            android:fontFamily="sans-serif"
+            />
+    </LinearLayout>
+
+</LinearLayout>
