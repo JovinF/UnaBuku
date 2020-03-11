@@ -3,4 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="unasatOrange">#F79624</color>
+    <color name="unasatLichtBlauw">#0FC0F2</color>
+    <color name="unasatDonkerBlauw">#004D81</color>
 </resources>

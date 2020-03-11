@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
 
     <LinearLayout
@@ -23,15 +23,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welkom bij UnaBuku"
+            android:text="Registreer"
             android:textColor="#696969"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:textSize="24dp"
             android:fontFamily="sans-serif-medium"
             />
-
+        <EditText
+            android:id="@+id/user_naam"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="naam..."
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_person_outline_black_24dp"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="50dp"/>
         <EditText
             android:id="@+id/user_email"
             android:layout_width="200dp"
@@ -39,9 +48,20 @@
             android:inputType="textEmailAddress"
             android:hint="username..."
             android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_person_outline_black_24dp"
+            android:drawableLeft="@drawable/ic_email_black_24dp"
             android:drawablePadding="10dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/user_stud_numer"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="studentennummer..."
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_credit_card_black_24dp"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="20dp"/>
         <EditText
             android:id="@+id/user_password"
             android:layout_width="200dp"
@@ -51,35 +71,17 @@
             android:layout_gravity="center"
             android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
             android:drawablePadding="10dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="20dp"/>
 
-<Button
-    android:id="@+id/login_user"
-    android:layout_width="100dp"
-    android:layout_height="50dp"
-    android:layout_gravity="center"
-    android:layout_marginTop="50dp"
-    android:text="Login"
-    />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Heeft u nog geen account?"
-            android:textColor="#696969"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginTop="60dp"
-            android:textSize="14dp"
-            android:fontFamily="sans-serif"
-            />
         <Button
-            android:id="@+id/register"
+            android:id="@+id/register_user"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="80dp"
             android:text="Registreer"
             />
+
     </LinearLayout>
 
 </LinearLayout>

@@ -20,9 +20,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Do something in response to button click
 
-                Intent menuIntent = new Intent(LoginActivity.this,MenuActivity.class);
-            startActivity(menuIntent);
+                Intent loginIntent = new Intent(LoginActivity.this,MenuActivity.class);
+            startActivity(loginIntent);
             finish();
+            }
+        });
+
+        Button registerButton = findViewById(R.id.register);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+
+                Intent registerIntent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(registerIntent);
+                finish();
             }
         });
     }
