@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">UnaBuku</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_home_fragment">Hello Home fragment</string>
+    <string name="hello_orders_fragment">Hello Orders fragment</string>
+    <string name="hello_profile_fragment">Hello Profile fragment</string>
 </resources>
