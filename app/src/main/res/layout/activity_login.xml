@@ -33,21 +33,21 @@
             />
 
         <EditText
-            android:id="@+id/user_email"
+            android:id="@+id/user_namelogin"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:hint="username..."
+            android:hint="Gebruikersnaam..."
             android:layout_gravity="center"
             android:drawableLeft="@drawable/ic_person_outline_black_24dp"
             android:drawablePadding="10dp"
             android:layout_marginTop="50dp"/>
         <EditText
-            android:id="@+id/user_password"
+            android:id="@+id/user_passwordlogin"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="password..."
+            android:hint="Wachtwoord..."
             android:layout_gravity="center"
             android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
             android:drawablePadding="10dp"
