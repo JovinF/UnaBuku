@@ -1,4 +1,4 @@
-package com.example.unabuku;
+package sr.unasat.unabuku;
 
 import androidx.appcompat.app.AppCompatActivity;
 

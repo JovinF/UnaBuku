@@ -1,4 +1,4 @@
-package com.example.unabuku;
+package sr.unasat.unabuku;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.unabuku.Database.DatabaseHelper;
+import sr.unasat.unabuku.Database.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
     EditText username, password;
@@ -31,16 +31,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 String usernameValue = username.getText().toString();
                 String passwordValue = password.getText().toString();
-                if (databaseHelper.isLoginValid(usernameValue, passwordValue)) {
-
-                    Intent loginIntent = new Intent(LoginActivity.this, MenuActivity.class);
-                    startActivity(loginIntent);
-                    Toast.makeText(LoginActivity.this,"Login Succesvol", Toast.LENGTH_SHORT).show();
-                    finish();
-                }else{
-                    Toast.makeText(LoginActivity.this,"Onjuiste Gegevens", Toast.LENGTH_SHORT).show();
-
-                }
+//                if (databaseHelper.loginUser(usernameValue, passwordValue)) {
+//
+//                    Intent loginIntent = new Intent(LoginActivity.this, MenuActivity.class);
+//                    startActivity(loginIntent);
+//                    Toast.makeText(LoginActivity.this,"Login Succesvol", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }else{
+//                    Toast.makeText(LoginActivity.this,"Onjuiste Gegevens", Toast.LENGTH_SHORT).show();
+//
+//                }
             }
         });
 

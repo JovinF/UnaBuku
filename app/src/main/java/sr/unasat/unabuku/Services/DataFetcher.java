@@ -1,8 +1,8 @@
-package com.example.unabuku.Services;
+package sr.unasat.unabuku.Services;
 
 import android.os.AsyncTask;
 
-import com.example.unabuku.HomeFragment;
+import sr.unasat.unabuku.HomeFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;

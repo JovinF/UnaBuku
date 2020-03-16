@@ -1,4 +1,4 @@
-package com.example.unabuku;
+package sr.unasat.unabuku;
 
 
 import android.os.Bundle;
@@ -8,18 +8,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.example.unabuku.Services.DataFetcher;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
-public static TextView data;
+public class OrdersFragment extends Fragment {
 
-    public HomeFragment() {
+
+    public OrdersFragment() {
         // Required empty public constructor
     }
 
@@ -28,13 +25,7 @@ public static TextView data;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_home, container, false);
-data = (TextView) v.findViewById(R.id.fetched_data);
-        DataFetcher process = new DataFetcher();
-        process.execute();
-        return v;
-
+        return inflater.inflate(R.layout.fragment_orders, container, false);
     }
-
 
 }
