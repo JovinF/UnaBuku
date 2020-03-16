@@ -5,14 +5,12 @@ public class User {
     private String userName;
     private String password;
     private String studNummer;
-    private int loggedIn;
 
-    public User(int userId, String userName, String password, String studNummer, int loggedIn) {
+    public User(int userId, String userName, String password, String studNummer) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.studNummer = studNummer;
-        this.loggedIn = loggedIn;
     }
 
     public int getUserId() {
@@ -45,13 +43,5 @@ public class User {
 
     public void setStudNummer(String studNummer) {
         this.studNummer = studNummer;
-    }
-
-    public int getLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(int loggedIn) {
-        this.loggedIn = loggedIn;
     }
 }

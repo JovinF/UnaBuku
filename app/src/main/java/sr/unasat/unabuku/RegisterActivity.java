@@ -51,9 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
                 }else{
                     Toast.makeText(RegisterActivity.this,"Vul AUB alles in",Toast.LENGTH_SHORT).show();
-
                 }
-
             }
         });
     }
