@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     Button loginButton, registerButton;
     DatabaseHelper databaseHelper;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.login_user);
         registerButton = findViewById(R.id.register);
+
+        session = new Session(this);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -51,10 +54,11 @@ public class LoginActivity extends AppCompatActivity {
     private void LoginUser(String username, String password) {
         User user = databaseHelper.authenticateUser(username, password);
         if (user != null) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt("LoggedUserID", user.getUserId());
-            editor.apply();
+            session.setLoggedin(true);
+            session.setUserId(user.getUserId());
+            session.setUserName(user.getUserName());
+            session.setStudNummer(user.getStudNummer());
+            session.setEmail(user.getEmail());
 
             Intent loginIntent = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(loginIntent);
