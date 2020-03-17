@@ -3,17 +3,15 @@ package sr.unasat.unabuku.Entity;
 public class User {
     private int userId;
     private String userName;
-    private String password;
-    private String studNummer;
     private String email;
+    private String studNummer;
 
 
-    public User(int userId, String userName, String password, String studNummer, String email) {
+    public User(int userId, String userName, String email, String studNummer) {
         this.userId = userId;
         this.userName = userName;
-        this.password = password;
-        this.studNummer = studNummer;
         this.email = email;
+        this.studNummer = studNummer;
     }
 
     public int getUserId() {
@@ -32,12 +30,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getStudNummer() {
@@ -48,11 +46,13 @@ public class User {
         this.studNummer = studNummer;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", studNummer='" + studNummer + '\'' +
+                '}';
     }
 }

@@ -5,16 +5,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.Nullable;
 
 import sr.unasat.unabuku.Entity.User;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class UnaBukuDAO extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "unabuku.db";
     private static final int DATABASE_VERSION = 1;
+
+    private static final String USER_TABLE = "user";
+    public static final String USER_USERNAME = "username";
+    public static final String USER_PASSWORD = "password";
+    public static final String USER_EMAIL = "email";
+    public static final String USER_STUDNUMMER = "studnummer";
+
     private static final String SQL_CREATE_USER_TABLE =
             "CREATE TABLE IF NOT EXISTS user(" +
                     "user_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -41,25 +47,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "FOREIGN KEY (book_id) REFERENCES book (book_id)" +
                     ")";
 
-    public DatabaseHelper(@Nullable Context context) {
+    public UnaBukuDAO(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        User user = findOneUserByUsername("viramdin");
+        if (user != null) {
+            return;
+        }
         setDefaultCredentials();
-        getWritableDatabase().execSQL(SQL_CREATE_USER_TABLE);
     }
 
     private void setDefaultCredentials() {
-
-        //Set default username and password
+        //Set default accounts
         ContentValues contentValues = new ContentValues();
-        contentValues.put("username", "viramdin");
-        contentValues.put("password", "pass@123");
-        contentValues.put("email", "vi.ramdin@unasat.sr");
-        contentValues.put("studnummer", "SE/1118/017");
-        insertOneRecord("user", contentValues);
-    }
-
-    public void createUser(ContentValues contentValues) {
-        getWritableDatabase().insert("user", " ", contentValues);
+        contentValues.put(USER_USERNAME, "viramdin");
+        contentValues.put(USER_PASSWORD, "pass@123");
+        contentValues.put(USER_EMAIL, "vi.ramdin@unasat.sr");
+        contentValues.put(USER_STUDNUMMER, "SE/1118/017");
+        insertOneUser(contentValues);
     }
 
     @Override
@@ -74,20 +78,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public long insertOneRecord(String tableName, ContentValues contentValues) {
+    public long insertOneUser(ContentValues contentValues) {
         SQLiteDatabase db = getWritableDatabase();
-        long rowId = db.insert(tableName, null, contentValues);
+        long rowId = db.insert(USER_TABLE, null, contentValues);
         db.close();
         //return the row ID of the newly inserted row, or -1 if an error occurred
         return rowId;
     }
 
+    public User findOneUserByUsername(String username) {
+        User user = null;
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = String.format("select * from %s where username = '%s'", USER_TABLE, username);
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            user = new User(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4));
+        }
+        db.close();
+        return user;
+    }
+
     public User authenticateUser(String username, String password) {
         User user = null;
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from user where username=? and password=?", new String[]{username, password});
+        String sql = String.format("select * from %s where username = '%s' AND password = '%s'", USER_TABLE, username, password);
+        Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
-            user = new User(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+            user = new User(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4));
         }
         db.close();
         return user;

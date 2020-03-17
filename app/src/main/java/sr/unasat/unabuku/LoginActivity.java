@@ -2,23 +2,20 @@ package sr.unasat.unabuku;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import sr.unasat.unabuku.Database.DatabaseHelper;
+import sr.unasat.unabuku.Database.UnaBukuDAO;
 import sr.unasat.unabuku.Entity.User;
 
 public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     Button loginButton, registerButton;
-    DatabaseHelper databaseHelper;
+    UnaBukuDAO unaBukuDAO;
     private Session session;
 
     @Override
@@ -27,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         username = findViewById(R.id.user_namelogin);
         password = findViewById(R.id.user_passwordlogin);
-        databaseHelper = new DatabaseHelper(this);
+        unaBukuDAO = new UnaBukuDAO(this);
 
         loginButton = findViewById(R.id.login_user);
         registerButton = findViewById(R.id.register);
@@ -52,13 +49,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void LoginUser(String username, String password) {
-        User user = databaseHelper.authenticateUser(username, password);
+        User user = unaBukuDAO.authenticateUser(username, password);
         if (user != null) {
             session.setLoggedin(true);
             session.setUserId(user.getUserId());
             session.setUserName(user.getUserName());
-            session.setStudNummer(user.getStudNummer());
             session.setEmail(user.getEmail());
+            session.setStudNummer(user.getStudNummer());
+            System.out.println(user);
+
 
             Intent loginIntent = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(loginIntent);
