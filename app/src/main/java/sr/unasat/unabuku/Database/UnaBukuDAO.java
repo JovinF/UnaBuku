@@ -34,8 +34,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
                     "book_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "title STRING NOT NULL," +
                     "author STRING NOT NULL," +
-                    "synopsis STRING NOT NULL," +
-                    "status STRING NOT NULL)";
+                    "synopsis STRING NOT NULL)";
 
     public static final String SQL_CREATE_ORDERS_TABLE =
             "CREATE TABLE IF NOT EXISTS orders(" +
@@ -53,10 +52,10 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         if (user != null) {
             return;
         }
-        setDefaultCredentials();
+        setDefaultUser();
     }
 
-    private void setDefaultCredentials() {
+    private void setDefaultUser() {
         //Set default accounts
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_USERNAME, "viramdin");
