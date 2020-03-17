@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import sr.unasat.unabuku.Entity.Order;
 import sr.unasat.unabuku.Entity.User;
 
 public class UnaBukuDAO extends SQLiteOpenHelper {
@@ -16,10 +20,23 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     private static final String USER_TABLE = "user";
+    public static final String USER_USERID = "user_id";
     public static final String USER_USERNAME = "username";
     public static final String USER_PASSWORD = "password";
     public static final String USER_EMAIL = "email";
     public static final String USER_STUDNUMMER = "studnummer";
+
+    private static final String BOOK_TABLE = "book";
+    private static final String BOOK_BOOKID = "book_id";
+    private static final String BOOK_TITLE = "title";
+    private static final String BOOK_AUTHOR = "author";
+    private static final String BOOK_SYNOPSIS = "synopsis";
+
+    private static final String ORDER_TABLE = "orders";
+    private static final String ORDER_ORDERID = "order_id";
+    private static final String ORDER_USERID = "user_id";
+    private static final String ORDER_BOOKID = "book_id";
+    private static final String ORDER_ORDERDATE = "order_date";
 
     private static final String SQL_CREATE_USER_TABLE =
             "CREATE TABLE IF NOT EXISTS user(" +
@@ -38,7 +55,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
 
     public static final String SQL_CREATE_ORDERS_TABLE =
             "CREATE TABLE IF NOT EXISTS orders(" +
-                    "order_nr INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "order_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "user_id INTEGER NOT NULL," +
                     "book_id INTEGER NOT NULL," +
                     "order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL," +
@@ -91,7 +108,12 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         String sql = String.format("select * from %s where username = '%s'", USER_TABLE, username);
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
-            user = new User(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4));
+            user = new User(
+                    cursor.getInt(cursor.getColumnIndex(USER_USERID)),
+                    cursor.getString(cursor.getColumnIndex(USER_USERNAME)),
+                    cursor.getString(cursor.getColumnIndex(USER_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(USER_STUDNUMMER))
+            );
         }
         db.close();
         return user;
@@ -103,9 +125,56 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         String sql = String.format("select * from %s where username = '%s' AND password = '%s'", USER_TABLE, username, password);
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
-            user = new User(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4));
+            user = new User(
+                    cursor.getInt(cursor.getColumnIndex(USER_USERID)),
+                    cursor.getString(cursor.getColumnIndex(USER_USERNAME)),
+                    cursor.getString(cursor.getColumnIndex(USER_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(USER_STUDNUMMER))
+            );
         }
         db.close();
         return user;
+    }
+
+    public List<Order> getOrders() {
+        List<Order> orderList = new ArrayList<Order>();
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = String.format("select * from %s", BOOK_TABLE);
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            orderList.add(
+                    new Order(
+                            cursor.getInt(cursor.getColumnIndex(ORDER_ORDERID)),
+                            cursor.getInt(cursor.getColumnIndex(ORDER_USERID)),
+                            cursor.getInt(cursor.getColumnIndex(ORDER_BOOKID)),
+                            cursor.getString(cursor.getColumnIndex(ORDER_ORDERDATE))
+                    )
+            );
+        }
+        return orderList;
+    }
+
+    public long insertOneOrder(ContentValues contentValues) {
+        SQLiteDatabase db = getWritableDatabase();
+        long rowId = db.insert(ORDER_TABLE, null, contentValues);
+        db.close();
+        //return the row ID of the newly inserted row, or -1 if an error occurred
+        return rowId;
+    }
+
+    public long updateOrder(ContentValues contentValues, int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        int rowId = db.update(ORDER_TABLE, contentValues, ORDER_ORDERID + "=?", new String[]{Integer.toString(id)});
+        db.close();
+        //return the row ID of the newly inserted row, or -1 if an error occurred
+        return rowId;
+    }
+
+    public long deleteOrder(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        int rowId = db.delete(ORDER_TABLE, ORDER_ORDERID + "=?", new String[]{Integer.toString(id)});
+        db.close();
+        //return the row ID of the newly inserted row, or -1 if an error occurred
+        return rowId;
     }
 }
