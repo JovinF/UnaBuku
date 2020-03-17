@@ -40,8 +40,8 @@ public class DataFetcher extends AsyncTask<Void,Void,Void> {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 singleParsedData = "ID:"+ jsonObject.get("id")+"\n"+
                         "Title:"+ jsonObject.get("title")+"\n"+
-                        "Completed:"+ jsonObject.get("completed")+"\n";
-                allParsedData = allParsedData + singleParsedData +"\n";
+                        "Author:"+ jsonObject.get("author")+"\n";
+                allParsedData = allParsedData + singleParsedData;
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
