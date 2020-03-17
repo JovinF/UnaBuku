@@ -1,4 +1,4 @@
-package com.example.unabuku;
+package sr.unasat.unabuku;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.unabuku.Database.DatabaseHelper;
+import sr.unasat.unabuku.Database.DatabaseHelper;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText username, email, password, studnummer;
@@ -51,9 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
                 }else{
                     Toast.makeText(RegisterActivity.this,"Vul AUB alles in",Toast.LENGTH_SHORT).show();
-
                 }
-
             }
         });
     }

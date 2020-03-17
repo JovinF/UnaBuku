@@ -1,4 +1,4 @@
-package com.example.unabuku;
+package com.unasat.unabuku;
 
 import org.junit.Test;
 
