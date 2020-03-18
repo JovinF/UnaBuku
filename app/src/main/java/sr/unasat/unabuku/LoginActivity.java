@@ -53,10 +53,11 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null) {
             session.setLoggedin(true);
             session.setUserId(user.getUserId());
+            session.setName(user.getName());
             session.setUserName(user.getUserName());
             session.setEmail(user.getEmail());
             session.setStudNummer(user.getStudNummer());
-            System.out.println(user);
+            System.out.println(unaBukuDAO.getOrdersByUserId());
 
             Intent loginIntent = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(loginIntent);

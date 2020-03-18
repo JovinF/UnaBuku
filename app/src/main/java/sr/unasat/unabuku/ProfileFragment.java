@@ -17,7 +17,7 @@ import android.widget.TextView;
  */
 public class ProfileFragment extends Fragment {
 
-    private TextView userName, studNummer, email;
+    private TextView name, userName, studNummer, email;
 
     private Session session;
 
@@ -38,10 +38,12 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         session = new Session(getActivity());
 
+        name = view.findViewById(R.id.name);
         userName = view.findViewById(R.id.userName);
         studNummer = view.findViewById(R.id.studNummer);
         email = view.findViewById(R.id.email);
 
+        name.setText(session.getName());
         userName.setText(session.getUserName());
         studNummer.setText(session.getStudNummer());
         email.setText(session.getEmail());

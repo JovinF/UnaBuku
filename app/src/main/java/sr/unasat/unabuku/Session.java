@@ -32,6 +32,15 @@ public class Session {
         return prefs.getInt("userId", 0);
     }
 
+    public void setName(String name) {
+        editor.putString("name", name);
+        editor.commit();
+    }
+
+    public String getName() {
+        return prefs.getString("name", null);
+    }
+
     public void setUserName(String userName) {
         editor.putString("userName", userName);
         editor.commit();

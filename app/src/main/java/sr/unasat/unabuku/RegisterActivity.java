@@ -13,7 +13,7 @@ import android.widget.Toast;
 import sr.unasat.unabuku.Database.UnaBukuDAO;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText username, email, password, studnummer;
+    EditText name, username, email, password, studnummer;
     Button register;
     UnaBukuDAO unaBukuDAO;
 
@@ -22,17 +22,20 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        username = findViewById(R.id.user_name);
-        email = findViewById(R.id.user_email);
-        password = findViewById(R.id.user_password);
-        studnummer = findViewById(R.id.user_stud_nummer);
-        register = findViewById(R.id.register_user);
+        name = findViewById(R.id.name);
+        username = findViewById(R.id.userName);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        studnummer = findViewById(R.id.studNummer);
+
+        register = findViewById(R.id.registerUser);
+
         unaBukuDAO = new UnaBukuDAO(this);
 
-        Button registerButton = findViewById(R.id.register_user);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Do something in response to button click
+                String nameValue = name.getText().toString();
                 String usernameValue = username.getText().toString();
                 String passwordValue = password.getText().toString();
                 String emailValue = email.getText().toString();
@@ -40,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (usernameValue.length() > 1) {
                     ContentValues contentValues = new ContentValues();
+                    contentValues.put("name", nameValue);
                     contentValues.put("username", usernameValue);
                     contentValues.put("password", passwordValue);
                     contentValues.put("email", emailValue);

@@ -3,13 +3,17 @@ package sr.unasat.unabuku.Entity;
 public class Order {
     private int orderId;
     private int userId;
-    private int bookId;
+    private String bookTitle;
+    private String bookAuthor;
+    private String bookSynopsis;
     private String orderDate;
 
-    public Order(int orderId, int userId, int bookId, String orderDate) {
+    public Order(int orderId, int userId, String bookTitle, String bookAuthor, String bookSynopsis, String orderDate) {
         this.orderId = orderId;
         this.userId = userId;
-        this.bookId = bookId;
+        this.bookTitle = bookTitle;
+        this.bookAuthor = bookAuthor;
+        this.bookSynopsis = bookSynopsis;
         this.orderDate = orderDate;
     }
 
@@ -29,12 +33,28 @@ public class Order {
         this.userId = userId;
     }
 
-    public int getBookId() {
-        return bookId;
+    public String getBookTitle() {
+        return bookTitle;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    public String getBookAuthor() {
+        return bookAuthor;
+    }
+
+    public void setBookAuthor(String bookAuthor) {
+        this.bookAuthor = bookAuthor;
+    }
+
+    public String getBookSynopsis() {
+        return bookSynopsis;
+    }
+
+    public void setBookSynopsis(String bookSynopsis) {
+        this.bookSynopsis = bookSynopsis;
     }
 
     public String getOrderDate() {
@@ -50,7 +70,9 @@ public class Order {
         return "Order{" +
                 "orderId=" + orderId +
                 ", userId=" + userId +
-                ", bookId=" + bookId +
+                ", bookTitle='" + bookTitle + '\'' +
+                ", bookAuthor='" + bookAuthor + '\'' +
+                ", bookSynopsis='" + bookSynopsis + '\'' +
                 ", orderDate='" + orderDate + '\'' +
                 '}';
     }
