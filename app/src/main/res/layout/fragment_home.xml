@@ -6,17 +6,9 @@
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-      <TextView
-          android:id="@+id/fetched_data"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:padding="5dp"
-          android:textSize="22dp"
-          />
-
-  </ScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/booksRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

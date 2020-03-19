@@ -13,14 +13,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/bookTitle"
+            android:id="@+id/orderBookTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Titel"
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/bookAuthor"
+            android:id="@+id/orderBookAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

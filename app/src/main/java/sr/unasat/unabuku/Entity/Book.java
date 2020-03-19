@@ -4,14 +4,12 @@ public class Book {
     private int bookId;
     private String title;
     private String author;
-    private String description;
     private String cover;
 
-    public Book(int bookId, String title, String author, String description, String cover) {
+    public Book(int bookId, String title, String author, String cover) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
-        this.description = description;
         this.cover = cover;
     }
 
@@ -39,14 +37,6 @@ public class Book {
         this.author = author;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getCover() {
         return cover;
     }
@@ -61,7 +51,6 @@ public class Book {
                 "bookId=" + bookId +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
-                ", description='" + description + '\'' +
                 ", cover='" + cover + '\'' +
                 '}';
     }

@@ -22,7 +22,6 @@ import java.util.List;
 
 import sr.unasat.unabuku.Database.UnaBukuDAO;
 import sr.unasat.unabuku.Entity.Order;
-import sr.unasat.unabuku.LoginActivity;
 import sr.unasat.unabuku.R;
 import sr.unasat.unabuku.Session;
 
@@ -44,8 +43,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
             super(itemView);
             editItem = (ImageButton) itemView.findViewById(R.id.editItem);
             removeItem = (ImageButton) itemView.findViewById(R.id.removeItem);
-            titleText = itemView.findViewById(R.id.bookTitle);
-            authorText = itemView.findViewById(R.id.bookAuthor);
+            titleText = itemView.findViewById(R.id.orderBookTitle);
+            authorText = itemView.findViewById(R.id.orderBookAuthor);
             amountText = itemView.findViewById(R.id.orderAmount);
         }
     }

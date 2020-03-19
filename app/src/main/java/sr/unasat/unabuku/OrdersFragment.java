@@ -14,15 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
 
 import sr.unasat.unabuku.Adapter.OrdersAdapter;
 import sr.unasat.unabuku.Database.UnaBukuDAO;
-import sr.unasat.unabuku.Entity.Order;
 
 
 /**
@@ -42,7 +36,7 @@ public class OrdersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_orders, container, false);
-        recyclerView = v.findViewById(R.id.recyclerView);
+        recyclerView = v.findViewById(R.id.ordersRecyclerView);
         UnaBukuDAO unaBukuDAO = new UnaBukuDAO(getContext());
         session = new Session(getContext());
         OrdersAdapter ordersAdapter = new OrdersAdapter(getContext(), unaBukuDAO.getOrdersByUserId(session.getUserId()));
