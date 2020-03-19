@@ -67,4 +67,9 @@ public class Session {
     public String getStudNummer() {
         return prefs.getString("studNummer", null);
     }
+
+    public void clearSession() {
+        editor.clear();
+        editor.commit();
+    }
 }

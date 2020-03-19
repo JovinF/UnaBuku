@@ -2,11 +2,14 @@ package sr.unasat.unabuku.Adapter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -19,7 +22,9 @@ import java.util.List;
 
 import sr.unasat.unabuku.Database.UnaBukuDAO;
 import sr.unasat.unabuku.Entity.Order;
+import sr.unasat.unabuku.LoginActivity;
 import sr.unasat.unabuku.R;
+import sr.unasat.unabuku.Session;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder> {
     private Context mContext;
@@ -51,12 +56,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
         v = LayoutInflater.from(mContext).inflate(R.layout.order_item, parent, false);
         final OrdersViewHolder ordersViewHolder = new OrdersViewHolder(v);
 
+        dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.dialog_update_order);
 
         ordersViewHolder.editItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = new Dialog(mContext);
-                dialog.setContentView(R.layout.dialog_update_order);
+
 
                 TextView dialogOrderIdTv = (TextView) dialog.findViewById(R.id.updateOrderId);
                 EditText dialogAmountEt = (EditText) dialog.findViewById(R.id.updateAmount);
@@ -100,6 +106,30 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
             }
         });
 
+
+        Button btnUpdateOrder = dialog.findViewById(R.id.btnUpdateOrder);
+        final TextView orderId = dialog.findViewById(R.id.updateOrderId);
+        final EditText orderAmount = dialog.findViewById(R.id.updateAmount);
+        btnUpdateOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UnaBukuDAO unaBukuDAO = new UnaBukuDAO(mContext);
+
+                int orderIdText = Integer.parseInt(orderId.getText().toString());
+                int orderAmountText = Integer.parseInt(orderAmount.getText().toString());
+                
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("amount", orderAmountText);
+                unaBukuDAO.updateOrder(contentValues, orderIdText);
+
+                Session session = new Session(mContext);
+                swapData(unaBukuDAO.getOrdersByUserId(session.getUserId()));
+
+                dialog.dismiss();
+                Toast.makeText(mContext, "Succesvol bijgewerkt", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return ordersViewHolder;
     }
 
@@ -117,5 +147,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public void swapData(List<Order> newData) {
+        mData = newData;
+        if (newData != null) {
+            notifyDataSetChanged();
+        }
     }
 }

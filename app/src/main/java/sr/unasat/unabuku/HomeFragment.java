@@ -17,7 +17,7 @@ import sr.unasat.unabuku.Services.DataFetcher;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-public static TextView data;
+    public static TextView data;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -28,8 +28,8 @@ public static TextView data;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_home, container, false);
-data = (TextView) v.findViewById(R.id.fetched_data);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        data = (TextView) v.findViewById(R.id.fetched_data);
         DataFetcher process = new DataFetcher();
         process.execute();
         return v;

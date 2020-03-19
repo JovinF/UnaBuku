@@ -67,30 +67,39 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
     private void setDefaultUser() {
         //Set default accounts
         ContentValues contentValues = new ContentValues();
-        contentValues.put(USER_NAME, "Viresh Ramdin");
-        contentValues.put(USER_USERNAME, "viramdin");
-        contentValues.put(USER_PASSWORD, "pass@123");
-        contentValues.put(USER_EMAIL, "vi.ramdin@unasat.sr");
-        contentValues.put(USER_STUDNUMMER, "SE/1118/017");
-        insertOneUser(contentValues);
+        User user1 = findOneUserByUsername("viramdin");
+        if (user1 == null) {
+            contentValues.put(USER_NAME, "Viresh Ramdin");
+            contentValues.put(USER_USERNAME, "viramdin");
+            contentValues.put(USER_PASSWORD, "pass@123");
+            contentValues.put(USER_EMAIL, "vi.ramdin@unasat.sr");
+            contentValues.put(USER_STUDNUMMER, "SE/1118/017");
+            insertOneUser(contentValues);
+        }
 
         contentValues.clear();
 
-        contentValues.put(USER_NAME, "Jovin Fransman");
-        contentValues.put(USER_USERNAME, "jfransman");
-        contentValues.put(USER_PASSWORD, "pass@123");
-        contentValues.put(USER_EMAIL, "j.fransman@unasat.sr");
-        contentValues.put(USER_STUDNUMMER, "SE/1118/006");
-        insertOneUser(contentValues);
+        User user2 = findOneUserByUsername("jfransman");
+        if (user2 == null) {
+            contentValues.put(USER_NAME, "Jovin Fransman");
+            contentValues.put(USER_USERNAME, "jfransman");
+            contentValues.put(USER_PASSWORD, "pass@123");
+            contentValues.put(USER_EMAIL, "j.fransman@unasat.sr");
+            contentValues.put(USER_STUDNUMMER, "SE/1118/006");
+            insertOneUser(contentValues);
+        }
 
         contentValues.clear();
 
-        contentValues.put(USER_NAME, "Farah Troenodrono");
-        contentValues.put(USER_USERNAME, "ftroenodrono");
-        contentValues.put(USER_PASSWORD, "pass@123");
-        contentValues.put(USER_EMAIL, "f.troenodrono@unasat.sr");
-        contentValues.put(USER_STUDNUMMER, "SE/1118/022");
-        insertOneUser(contentValues);
+        User user3 = findOneUserByUsername("ftroenodrono");
+        if (user3 == null) {
+            contentValues.put(USER_NAME, "Farah Troenodrono");
+            contentValues.put(USER_USERNAME, "ftroenodrono");
+            contentValues.put(USER_PASSWORD, "pass@123");
+            contentValues.put(USER_EMAIL, "f.troenodrono@unasat.sr");
+            contentValues.put(USER_STUDNUMMER, "SE/1118/022");
+            insertOneUser(contentValues);
+        }
     }
 
     private void setDummyOrders() {
@@ -185,6 +194,24 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         db.close();
         //return the row ID of the newly inserted row, or -1 if an error occurred
         return rowId;
+    }
+
+    public User findOneUserByUsername(String username) {
+        User user = null;
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = String.format("select * from %s where username = '%s'", USER_TABLE, username);
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            user = new User(
+                    cursor.getInt(cursor.getColumnIndex(USER_USERID)),
+                    cursor.getString(cursor.getColumnIndex(USER_NAME)),
+                    cursor.getString(cursor.getColumnIndex(USER_USERNAME)),
+                    cursor.getString(cursor.getColumnIndex(USER_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(USER_STUDNUMMER))
+            );
+        }
+        db.close();
+        return user;
     }
 
     public User authenticateUser(String username, String password) {

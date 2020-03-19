@@ -1,5 +1,8 @@
 package sr.unasat.unabuku;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -25,7 +31,6 @@ import sr.unasat.unabuku.Entity.Order;
 public class OrdersFragment extends Fragment {
     View v;
     private RecyclerView recyclerView;
-    private List<Order> orders;
     private Session session;
 
     public OrdersFragment() {
@@ -49,9 +54,6 @@ public class OrdersFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UnaBukuDAO unaBukuDAO = new UnaBukuDAO(getContext());
-        session = new Session(getContext());
-        orders = unaBukuDAO.getOrdersByUserId(session.getUserId());
     }
 
     @Override
