@@ -16,31 +16,32 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DataFetcher extends AsyncTask<Void,Void,Void> {
-        String data = "";
-        String allParsedData = "";
-        String singleParsedData = "";
+public class DataFetcher extends AsyncTask<Void, Void, Void> {
+    String data = "";
+    String allParsedData = "";
+    String singleParsedData = "";
+
     @Override
     protected Void doInBackground(Void... voids) {
 
         try {
-            URL url = new URL("https://jsonplaceholder.typicode.com/todos");
+            URL url = new URL("http://limitless-wildwood-86411.herokuapp.com/api/books");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
-            while(line !=null){
+            while (line != null) {
                 line = bufferedReader.readLine();
                 data = data + line;
             }
 
             JSONArray jsonArray = new JSONArray(data);
 
-            for (int i = 0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                singleParsedData = "ID:"+ jsonObject.get("id")+"\n"+
-                        "Title:"+ jsonObject.get("title")+"\n"+
-                        "Author:"+ jsonObject.get("author")+"\n";
+                singleParsedData = "id:" + jsonObject.get("id") + "\n" +
+                        "title:" + jsonObject.get("title") + "\n" +
+                        "author:" + jsonObject.get("author") + "\n";
                 allParsedData = allParsedData + singleParsedData;
             }
         } catch (MalformedURLException e) {

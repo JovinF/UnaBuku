@@ -117,7 +117,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
 
                 int orderIdText = Integer.parseInt(orderId.getText().toString());
                 int orderAmountText = Integer.parseInt(orderAmount.getText().toString());
-                
+
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("amount", orderAmountText);
                 unaBukuDAO.updateOrder(contentValues, orderIdText);
