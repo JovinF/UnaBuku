@@ -3,34 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:layout_marginBottom="5dp">
+    android:layout_marginBottom="5dp"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bookTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Titel"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/bookAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Auteur"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/bookTitle"
+        android:id="@+id/orderAmount"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Titel"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/bookAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="Auteur"
-        android:textSize="30sp" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center_vertical"
+        android:text="Amount"
+        android:textSize="15sp" />
 
     <ImageButton
         android:id="@+id/editItem"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
         android:src="@android:drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/removeItem"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
         android:src="@android:drawable/ic_delete" />
+
 </LinearLayout>

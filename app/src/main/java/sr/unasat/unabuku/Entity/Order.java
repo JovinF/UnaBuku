@@ -6,14 +6,16 @@ public class Order {
     private String bookTitle;
     private String bookAuthor;
     private String bookSynopsis;
+    private int amount;
     private String orderDate;
 
-    public Order(int orderId, int userId, String bookTitle, String bookAuthor, String bookSynopsis, String orderDate) {
+    public Order(int orderId, int userId, String bookTitle, String bookAuthor, String bookSynopsis, int amount, String orderDate) {
         this.orderId = orderId;
         this.userId = userId;
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
         this.bookSynopsis = bookSynopsis;
+        this.amount = amount;
         this.orderDate = orderDate;
     }
 
@@ -57,6 +59,14 @@ public class Order {
         this.bookSynopsis = bookSynopsis;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     public String getOrderDate() {
         return orderDate;
     }
@@ -73,6 +83,7 @@ public class Order {
                 ", bookTitle='" + bookTitle + '\'' +
                 ", bookAuthor='" + bookAuthor + '\'' +
                 ", bookSynopsis='" + bookSynopsis + '\'' +
+                ", amount=" + amount +
                 ", orderDate='" + orderDate + '\'' +
                 '}';
     }

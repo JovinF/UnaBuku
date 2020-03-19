@@ -34,6 +34,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
     private static final String ORDER_BOOKTITLE = "book_title";
     private static final String ORDER_BOOKAUTHOR = "book_author";
     private static final String ORDER_BOOKSYNOPSIS = "book_synopsis";
+    private static final String ORDER_AMOUNT = "amount";
     private static final String ORDER_ORDERDATE = "order_date";
 
     private static final String SQL_CREATE_USER_TABLE =
@@ -52,6 +53,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
                     "book_title STRING NOT NULL," +
                     "book_author STRING NOT NULL," +
                     "book_synopsis STRING," +
+                    "amount INETEGER NOT NULL," +
                     "order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL," +
                     "FOREIGN KEY (user_id) REFERENCES user (user_id)" +
                     ")";
@@ -96,6 +98,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         contentValues.put(ORDER_USERID, 1);
         contentValues.put(ORDER_BOOKTITLE, "Boek 1");
         contentValues.put(ORDER_BOOKAUTHOR, "Viresh 1");
+        contentValues.put(ORDER_AMOUNT, 2);
         insertOneOrder(contentValues);
 
         contentValues.clear();
@@ -103,13 +106,17 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         contentValues.put(ORDER_USERID, 1);
         contentValues.put(ORDER_BOOKTITLE, "Boek 2");
         contentValues.put(ORDER_BOOKAUTHOR, "Viresh 2");
+        contentValues.put(ORDER_AMOUNT, 1);
         insertOneOrder(contentValues);
+
         contentValues.clear();
 
         contentValues.put(ORDER_USERID, 1);
         contentValues.put(ORDER_BOOKTITLE, "Boek 3");
         contentValues.put(ORDER_BOOKAUTHOR, "Viresh 3");
+        contentValues.put(ORDER_AMOUNT, 3);
         insertOneOrder(contentValues);
+
         contentValues.clear();
 
         contentValues.clear();
@@ -117,6 +124,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         contentValues.put(ORDER_USERID, 2);
         contentValues.put(ORDER_BOOKTITLE, "Boek 1");
         contentValues.put(ORDER_BOOKAUTHOR, "Jovin 1");
+        contentValues.put(ORDER_AMOUNT, 5);
         insertOneOrder(contentValues);
 
         contentValues.clear();
@@ -124,6 +132,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         contentValues.put(ORDER_USERID, 2);
         contentValues.put(ORDER_BOOKTITLE, "Boek 2");
         contentValues.put(ORDER_BOOKAUTHOR, "Jovin 2");
+        contentValues.put(ORDER_AMOUNT, 1);
         insertOneOrder(contentValues);
 
         contentValues.clear();
@@ -131,6 +140,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         contentValues.put(ORDER_USERID, 2);
         contentValues.put(ORDER_BOOKTITLE, "Boek 3");
         contentValues.put(ORDER_BOOKAUTHOR, "Jovin 3");
+        contentValues.put(ORDER_AMOUNT, 7);
         insertOneOrder(contentValues);
 
         contentValues.clear();
@@ -138,6 +148,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         contentValues.put(ORDER_USERID, 3);
         contentValues.put(ORDER_BOOKTITLE, "Boek 1");
         contentValues.put(ORDER_BOOKAUTHOR, "Farah 1");
+        contentValues.put(ORDER_AMOUNT, 5);
         insertOneOrder(contentValues);
 
         contentValues.clear();
@@ -145,6 +156,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         contentValues.put(ORDER_USERID, 3);
         contentValues.put(ORDER_BOOKTITLE, "Boek 2");
         contentValues.put(ORDER_BOOKAUTHOR, "Farah 2");
+        contentValues.put(ORDER_AMOUNT, 1);
         insertOneOrder(contentValues);
 
         contentValues.clear();
@@ -152,6 +164,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         contentValues.put(ORDER_USERID, 3);
         contentValues.put(ORDER_BOOKTITLE, "Boek 3");
         contentValues.put(ORDER_BOOKAUTHOR, "Farah 3");
+        contentValues.put(ORDER_AMOUNT, 9);
         insertOneOrder(contentValues);
     }
 
@@ -205,6 +218,7 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(ORDER_BOOKTITLE)),
                             cursor.getString(cursor.getColumnIndex(ORDER_BOOKAUTHOR)),
                             cursor.getString(cursor.getColumnIndex(ORDER_BOOKSYNOPSIS)),
+                            cursor.getInt(cursor.getColumnIndex(ORDER_AMOUNT)),
                             cursor.getString(cursor.getColumnIndex(ORDER_ORDERDATE))
                     )
             );

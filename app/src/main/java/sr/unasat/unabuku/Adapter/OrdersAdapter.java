@@ -1,11 +1,13 @@
 package sr.unasat.unabuku.Adapter;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import sr.unasat.unabuku.R;
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder> {
     private Context mContext;
     List<Order> mData;
+    Dialog dialog;
 
     public OrdersAdapter(Context context, List<Order> mData) {
         this.mContext = context;
@@ -30,7 +33,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
 
     public static class OrdersViewHolder extends RecyclerView.ViewHolder {
         private ImageButton editItem, removeItem;
-        public TextView titleText, authorText;
+        public TextView titleText, authorText, amountText;
 
         public OrdersViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -38,6 +41,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
             removeItem = (ImageButton) itemView.findViewById(R.id.removeItem);
             titleText = itemView.findViewById(R.id.bookTitle);
             authorText = itemView.findViewById(R.id.bookAuthor);
+            amountText = itemView.findViewById(R.id.orderAmount);
         }
     }
 
@@ -47,10 +51,20 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
         v = LayoutInflater.from(mContext).inflate(R.layout.order_item, parent, false);
         final OrdersViewHolder ordersViewHolder = new OrdersViewHolder(v);
 
+
         ordersViewHolder.editItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Test " + mData.get(ordersViewHolder.getAdapterPosition()).getOrderId(), Toast.LENGTH_SHORT).show();
+                dialog = new Dialog(mContext);
+                dialog.setContentView(R.layout.dialog_update_order);
+
+                TextView dialogOrderIdTv = (TextView) dialog.findViewById(R.id.updateOrderId);
+                EditText dialogAmountEt = (EditText) dialog.findViewById(R.id.updateAmount);
+
+                dialogOrderIdTv.setText(Integer.toString(mData.get(ordersViewHolder.getAdapterPosition()).getOrderId()));
+                dialogAmountEt.setText(Integer.toString(mData.get(ordersViewHolder.getAdapterPosition()).getAmount()));
+
+                dialog.show();
             }
         });
 
@@ -93,9 +107,11 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
     public void onBindViewHolder(@NonNull OrdersViewHolder holder, int position) {
         String title = mData.get(position).getBookTitle();
         String author = mData.get(position).getBookAuthor();
+        String amount = Integer.toString(mData.get(position).getAmount());
 
         holder.titleText.setText(title);
         holder.authorText.setText(author);
+        holder.amountText.setText(amount);
     }
 
     @Override
