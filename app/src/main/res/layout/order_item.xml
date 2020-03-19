@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/orderItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:layout_marginBottom="5dp">
 
     <TextView
         android:id="@+id/bookTitle"
@@ -20,10 +20,17 @@
         android:text="Auteur"
         android:textSize="30sp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/editItem"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
         android:layout_marginStart="10dp"
-        android:text="Verwijder"
-        android:textSize="20sp" />
+        android:src="@android:drawable/ic_menu_edit" />
+
+    <ImageButton
+        android:id="@+id/removeItem"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:src="@android:drawable/ic_delete" />
 </LinearLayout>

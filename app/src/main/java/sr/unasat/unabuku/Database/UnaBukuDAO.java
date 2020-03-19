@@ -13,6 +13,7 @@ import java.util.List;
 
 import sr.unasat.unabuku.Entity.Order;
 import sr.unasat.unabuku.Entity.User;
+import sr.unasat.unabuku.Session;
 
 public class UnaBukuDAO extends SQLiteOpenHelper {
 
@@ -191,10 +192,10 @@ public class UnaBukuDAO extends SQLiteOpenHelper {
         return user;
     }
 
-    public List<Order> getOrdersByUserId() {
+    public List<Order> getOrdersByUserId(int id) {
         List<Order> orderList = new ArrayList<Order>();
         SQLiteDatabase db = getReadableDatabase();
-        String sql = String.format("select * from %s", ORDER_TABLE);
+        String sql = String.format("select * from %s where user_id='%s'", ORDER_TABLE, id);
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             orderList.add(

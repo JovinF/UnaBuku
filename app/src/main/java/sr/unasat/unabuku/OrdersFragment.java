@@ -1,8 +1,5 @@
 package sr.unasat.unabuku;
 
-
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import sr.unasat.unabuku.Adapter.OrdersAdapter;
@@ -30,7 +26,7 @@ public class OrdersFragment extends Fragment {
     View v;
     private RecyclerView recyclerView;
     private List<Order> orders;
-
+    private Session session;
 
     public OrdersFragment() {
         // Required empty public constructor
@@ -43,7 +39,8 @@ public class OrdersFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_orders, container, false);
         recyclerView = v.findViewById(R.id.recyclerView);
         UnaBukuDAO unaBukuDAO = new UnaBukuDAO(getContext());
-        OrdersAdapter ordersAdapter = new OrdersAdapter(getContext(), unaBukuDAO.getOrdersByUserId());
+        session = new Session(getContext());
+        OrdersAdapter ordersAdapter = new OrdersAdapter(getContext(), unaBukuDAO.getOrdersByUserId(session.getUserId()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(ordersAdapter);
         return v;
@@ -53,13 +50,12 @@ public class OrdersFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UnaBukuDAO unaBukuDAO = new UnaBukuDAO(getContext());
-
-        orders = unaBukuDAO.getOrdersByUserId();
+        session = new Session(getContext());
+        orders = unaBukuDAO.getOrdersByUserId(session.getUserId());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 }
