@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +55,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
             bookCoverImage = (ImageView) itemView.findViewById(R.id.bookCover);
             bookTitleText = itemView.findViewById(R.id.bookTitle);
             bookAuthorText = itemView.findViewById(R.id.bookAuthor);
-
-
         }
     }
 
@@ -75,9 +74,11 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
             public void onClick(View v) {
                 TextView dialogBookTitleTv = (TextView) dialog.findViewById(R.id.insertBookTitle);
                 TextView dialogBookAuthor = (TextView) dialog.findViewById(R.id.insertBookAuthor);
+                ImageView dialogBookCover = (ImageView) dialog.findViewById(R.id.insertBookCover);
 
                 dialogBookTitleTv.setText(mData.get(booksViewHolder.getAdapterPosition()).getTitle());
                 dialogBookAuthor.setText(mData.get(booksViewHolder.getAdapterPosition()).getAuthor());
+                Picasso.get().load(mData.get(booksViewHolder.getAdapterPosition()).getCover()).into(dialogBookCover);
 
                 dialog.show();
             }
@@ -91,31 +92,40 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         btnInsertOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UnaBukuDAO unaBukuDAO = new UnaBukuDAO(mContext);
-                Session session = new Session(mContext);
+                try {
+                    UnaBukuDAO unaBukuDAO = new UnaBukuDAO(mContext);
+                    Session session = new Session(mContext);
 
-                String titleText = bookTitle.getText().toString();
-                String authorText = bookAuthor.getText().toString();
-                int amountText = Integer.parseInt(amount.getText().toString());
+                    String titleText = bookTitle.getText().toString();
+                    String authorText = bookAuthor.getText().toString();
+                    if (!amount.getText().toString().equals("")) {
+                        int amountText = Integer.parseInt(amount.getText().toString());
 
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("user_id", session.getUserId());
-                contentValues.put("book_title", titleText);
-                contentValues.put("book_author", authorText);
-                contentValues.put("amount", amountText);
-                unaBukuDAO.insertOneOrder(contentValues);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("user_id", session.getUserId());
+                        contentValues.put("book_title", titleText);
+                        contentValues.put("book_author", authorText);
+                        contentValues.put("amount", amountText);
 
-                dialog.dismiss();
-                Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_1_ID)
-                        .setSmallIcon(R.drawable.book)
-                        .setContentTitle("Successvol")
-                        .setContentText("Uw order is successvol geplaatst")
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                        .build();
+                        unaBukuDAO.insertOneOrder(contentValues);
 
-                notificationManager.notify(1, notification);
-                Toast.makeText(mContext, "Order successvol geplaatst", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_1_ID)
+                                .setSmallIcon(R.drawable.book)
+                                .setContentTitle("Successvol")
+                                .setContentText("Uw order is successvol geplaatst")
+                                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                                .build();
+
+                        notificationManager.notify(1, notification);
+                        Toast.makeText(mContext, "Order successvol geplaatst", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mContext, "U bent verplicht alle velden in te vullen", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (SQLiteException e) {
+                    Toast.makeText(mContext, "Order niet geplaatst", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

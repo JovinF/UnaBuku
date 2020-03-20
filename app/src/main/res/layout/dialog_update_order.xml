@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
@@ -9,6 +9,13 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Bestelaantal bewerken"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/updateOrderId"
@@ -22,7 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:hint="Aantal"
-            android:textSize="20sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <Button
@@ -30,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:textSize="20sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,20 +113,29 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
         btnUpdateOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UnaBukuDAO unaBukuDAO = new UnaBukuDAO(mContext);
+                try {
+                    UnaBukuDAO unaBukuDAO = new UnaBukuDAO(mContext);
 
-                int orderIdText = Integer.parseInt(orderId.getText().toString());
-                int orderAmountText = Integer.parseInt(orderAmount.getText().toString());
+                    int orderIdText = Integer.parseInt(orderId.getText().toString());
+                    if (!orderAmount.getText().toString().equals("")) {
+                        int orderAmountText = Integer.parseInt(orderAmount.getText().toString());
 
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("amount", orderAmountText);
-                unaBukuDAO.updateOrder(contentValues, orderIdText);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("amount", orderAmountText);
+                        unaBukuDAO.updateOrder(contentValues, orderIdText);
 
-                Session session = new Session(mContext);
-                swapData(unaBukuDAO.getOrdersByUserId(session.getUserId()));
+                        Session session = new Session(mContext);
+                        swapData(unaBukuDAO.getOrdersByUserId(session.getUserId()));
 
-                dialog.dismiss();
-                Toast.makeText(mContext, "Succesvol bijgewerkt", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        Toast.makeText(mContext, "Succesvol bijgewerkt", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mContext, "U bent verplicht alle velden in te vullen", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (SQLiteException e) {
+                    Toast.makeText(mContext, "Order niet geplaatst", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
