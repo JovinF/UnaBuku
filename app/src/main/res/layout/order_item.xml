@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/orderBookTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Titel"
             android:textSize="12dp" />
