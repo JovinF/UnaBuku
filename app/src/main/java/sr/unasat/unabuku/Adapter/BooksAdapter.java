@@ -1,6 +1,7 @@
 package sr.unasat.unabuku.Adapter;
 
 import android.app.Dialog;
+import android.app.Notification;
 import android.content.ContentValues;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -25,10 +26,14 @@ import sr.unasat.unabuku.Entity.Book;
 import sr.unasat.unabuku.R;
 import sr.unasat.unabuku.Session;
 
+import static sr.unasat.unabuku.App.CHANNEL_1_ID;
+import static sr.unasat.unabuku.App.CHANNEL_2_ID;
+
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHolder> {
     private Context mContext;
     List<Book> mData;
     Dialog dialog;
+    private NotificationManagerCompat notificationManager;
 
     public BooksAdapter(Context context, List<Book> mData) {
         this.mContext = context;
@@ -40,12 +45,14 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         public TextView bookTitleText, bookAuthorText;
         ImageView bookCoverImage;
 
+
         public BooksViewHolder(@NonNull View itemView) {
             super(itemView);
             orderBook = (ImageButton) itemView.findViewById(R.id.orderBook);
             bookCoverImage = (ImageView) itemView.findViewById(R.id.bookCover);
             bookTitleText = itemView.findViewById(R.id.bookTitle);
             bookAuthorText = itemView.findViewById(R.id.bookAuthor);
+
 
         }
     }
@@ -55,6 +62,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         View v;
         v = LayoutInflater.from(mContext).inflate(R.layout.book_item, parent, false);
         final BooksAdapter.BooksViewHolder booksViewHolder = new BooksViewHolder(v);
+
+        notificationManager = NotificationManagerCompat.from(mContext);
 
         dialog = new Dialog(mContext);
         dialog.setContentView(R.layout.dialog_insert_order);
@@ -95,6 +104,15 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                 unaBukuDAO.insertOneOrder(contentValues);
 
                 dialog.dismiss();
+                Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.book)
+                        .setContentTitle("Successvol")
+                        .setContentText("Uw order is successvol geplaatst")
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+
+                notificationManager.notify(1, notification);
                 Toast.makeText(mContext, "Order successvol geplaatst", Toast.LENGTH_SHORT).show();
             }
         });
@@ -106,11 +124,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
     public void onBindViewHolder(@NonNull BooksViewHolder holder, int position) {
         String title = mData.get(position).getTitle();
         String author = mData.get(position).getAuthor();
-        String url = mData.get(position).getCover();
 
         holder.bookTitleText.setText(title);
         holder.bookAuthorText.setText(author);
-        Picasso.get().load(url).into(holder.bookCoverImage);
     }
 
     @Override
