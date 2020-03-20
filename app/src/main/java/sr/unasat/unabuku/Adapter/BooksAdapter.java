@@ -19,6 +19,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import sr.unasat.unabuku.Database.UnaBukuDAO;
@@ -124,9 +126,11 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
     public void onBindViewHolder(@NonNull BooksViewHolder holder, int position) {
         String title = mData.get(position).getTitle();
         String author = mData.get(position).getAuthor();
+        String url = mData.get(position).getCover();
 
         holder.bookTitleText.setText(title);
         holder.bookAuthorText.setText(author);
+        Picasso.get().load(url).into(holder.bookCoverImage);
     }
 
     @Override
