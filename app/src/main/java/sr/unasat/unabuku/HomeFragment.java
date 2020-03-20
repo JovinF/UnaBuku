@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -93,6 +94,7 @@ public class HomeFragment extends Fragment {
                         (String) map.get("title"),
                         (String) map.get("author"),
                         (String) map.get("cover"));
+
                 bookList.add(book);
             }
         } catch (IOException e) {
